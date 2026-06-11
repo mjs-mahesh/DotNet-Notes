@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/slnx.sqlite
+/.vs/DotNet-Notes/v17/TestStore/0
+/.vs/DotNet-Notes/CopilotIndices/17.14.1577.30250
+/.vs/ProjectSettings.json
+/.vs/DotNet-Notes/FileContentIndex
