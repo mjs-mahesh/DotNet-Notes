@@ -1,0 +1,85 @@
+Collections is used to store and fetch elements.
+It is found in System.Collections.Generic namespace.
+
+C# List<T> It can have duplicate elements.
+ 
+// Create a list of strings  
+        var names = new List<string>();  
+        names.Add("Sonoo Jaiswal");  
+        names.Add("Ankit");  
+
+ // Create a list of strings using collection initializer  
+        var names = new List<string>() {"Sonoo", "Vimal", "Ratan", "Love" }; 
+
+C# HashSet<T> It does not store duplicate elements
+
+// Create a set of strings  
+        var names = new HashSet<string>();  
+        names.Add("Sonoo");  
+        names.Add("Ankit");  
+        names.Add("Ankit");//will not be added  
+          
+        // Iterate HashSet elements using foreach loop  
+        foreach (var name in names)  
+        {  
+            Console.WriteLine(name);  
+        }  
+C# SortedSet<T>  It maintains ascending order and does not store duplicate elements.
+
+C# Stack<T> is used to push and pop elements. It uses the concept of Stack that arranges elements in LIFO (Last In First Out) order. It can have duplicate elements.
+ Stack<string> names = new Stack<string>();  
+
+C# Queue<T> class is used to Enqueue and Dequeue elements. It uses the concept of Queue that arranges elements in FIFO (First In First Out) order
+Queue<string> names = new Queue<string>(); 
+
+C# LinkedList<T> class uses the concept of linked list. It allows us to insert and delete elements fastly. It can have duplicate elements.
+
+  // Create a list of strings  
+        var names = new LinkedList<string>();  
+
+C# Dictionary<TKey, TValue>  class uses the concept of hashtable. It stores values on the basis of key. It contains unique keys only. By the help of key, we can easily search or remove elements.
+
+   Dictionary<string, string> names = new Dictionary<string, string>();  
+        names.Add("1","Sonoo");  
+        names.Add("2","Peter");  
+        names.Add("3","James");  
+        names.Add("4","Ratan");  
+        names.Add("5","Irfan");  
+  
+        foreach (KeyValuePair<string, string> kv in names)  
+        {  
+            Console.WriteLine(kv.Key+" "+kv.Value);  
+        } 
+
+C# SortedDictionary<TKey, TValue>  class uses the concept of hashtable. It stores values on the basis of key. It contains unique keys and maintains ascending order on the basis of key. By the help of key, we can easily search or remove elements.
+
+  SortedDictionary<string, string> names = new SortedDictionary<string, string>();  
+        names.Add("1","Sonoo");    
+        names.Add("4","Peter");    
+        names.Add("5","James");    
+        names.Add("3","Ratan");    
+        names.Add("2","Irfan");    
+        foreach (KeyValuePair<string, string> kv in names)  
+        {  
+            Console.WriteLine(kv.Key+" "+kv.Value);  
+        }
+
+C# SortedList<TKey, TValue>  is an array of key/value pairs. It stores values on the basis of key. The SortedList<TKey, TValue> class contains unique keys and maintains ascending order on the basis of key. By the help of key, we can easily search or remove elements. 
+
+SortedList<string, string> names = new SortedList<string, string>();  
+        names.Add("1","Sonoo");    
+        names.Add("4","Peter");    
+        names.Add("5","James");    
+        names.Add("3","Ratan");    
+        names.Add("2","Irfan");    
+        foreach (KeyValuePair<string, string> kv in names)  
+        {  
+            Console.WriteLine(kv.Key+" "+kv.Value);  
+        }  
+
+
+
+ 
+
+
+

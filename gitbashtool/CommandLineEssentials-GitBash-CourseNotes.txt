@@ -1,0 +1,52 @@
+Git Bash cmds
+
+pwd - to check directory home
+ls -l  - to get list all of items and ls -al also does same
+cd g+Tab to get all items in that folder
+cd .. To get back one step 
+cd ../../..  - to get back three step level
+which ls
+echo "Hi Mahesh" - echo stores the string message
+echo $PATH
+cat - simply outputs the content of the file
+cat filename.format
+less also does same 
+less filename.format
+touch - updates the timestamp of the file
+touch filename.format
+
+mkdir projects - creates projects folder
+rmdir projects - removes that folder if it has no elements in it.
+rm -rf projects/ removes all content in that folder with force
+clear - use clear cmd to clean the display of gitbash
+exit - use exit cmd to close gitbash
+
+Printing Output to a File (> and >>) 
+echo “Hi mahesh” >> demo.txt  - creates a new file and print this cmds
+cat demo.txt - prints the content of the file
+If I want to print some additional values to demo.txt file
+echo “How are you?” >> demo.txt
+less demo.txt also prints output content and press q to get back
+If you want to override entire thing in txt file
+echo “Hi Mahesh, How are you? Please Prepare for Interviews” > demo.txt
+With one greater > symbol u can overirde
+ls -al > listing.txt - writes all list items into file
+
+Creating a Bash Script using notePad++
+
+Notepad++ example.sh - creates a file and then we add bash scripting there.
+Always make script as Edit-> EOlConversions-> unix CLRF
+If you save it is saved in read write (-rwxr-xr-x 1 HEWITT-NA+A1089761 4096       63 Feb 14 21:59  example.sh*)
+If the file is not executable (-rwxr-xr-)
+Then make it executable chmod cmd
+chmod +x example.sh - this will bash script executable
+To run Bash script - add ./followedby shell script
+./example.sh 
+
+Customizing the Bash Environment with .bashrc File 
+notepad++ .bashrc - it is the file where we can make congiguration for each shortcuts for our commands
+
+
+for configuring Gitbash with NotePad 
+ihave used 
+git config --global core.editor "'C:/Program Files/Notepad++/notepad++.exe' -multiInst -notabbar -nosession -noPlugin -wait"

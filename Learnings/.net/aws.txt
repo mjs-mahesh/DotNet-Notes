@@ -1,0 +1,19 @@
+AWS SQS - SQS is an acronym for “Simple Queue Service”
+
+Fully managed message queuing for microservices, distributed systems, and serverless applications
+(SQS) lets you send, store, and receive messages between software components at any volume, without losing messages or requiring other services to be available.
+
+AWS - S3 -Amazon Simple Storage Service
+https://aws-tc-largeobjects.s3-us-west-2.amazonaws.com/ILT-TF-100-ACFNDS-20-EN/Module_7_S3+v2.0.mp4
+
+Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web.
+Using Amazon S3 to store and retrieve any amount of data using highly scalable, reliable, fast, and inexpensive data storage.
+
+CloudWatch
+
+Amazon CloudWatch is a monitoring and observability service that is built for DevOps engineers, developers, site reliability engineers (SRE), and IT managers. 
+CloudWatch monitors your AWS resources (and the applicationsthat you run on AWS) in real time. You can use CloudWatch to collect and track metrics, which are variables that you can measure for your resources and applications.
+Amazon CloudWatch Events to define rules that match incoming events (or changes in your AWS environment) and route them to targets for processing. 
+Targets can include Amazon EC2 instances, AWS Lambda functions, Kinesis streams, Amazon ECS tasks, Step Functions state machines, Amazon SNS topics, Amazon SQS queues, and built-in targets. 
+CloudWatch Events becomes aware of operational changes as they occur. 
+CloudWatch Events responds to these operational changes and takes corrective action as necessary, by sending messages to respond to the environment, activating functions, making changes, and capturing state information.

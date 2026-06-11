@@ -1,0 +1,5 @@
+how to consume other services like employee in adjudication or leave and other services in WCF method
+configuration of s3,sqs i guess this can be done in appsettingsjsonfile
+kafka
+redis - we use redis for caching and how it is used here
+creating queues in LP to send it to AWS SQS 

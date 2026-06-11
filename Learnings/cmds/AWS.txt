@@ -1,0 +1,12 @@
+AWS CLI / CloudShell
+
+aws configure == for configuring AccessKey, Secretkey, Region
+aws iam list -users == for list users in iam
+aws iam list -users --region == to get users by region
+clear == to clear cmds
+ls
+echo "test" > demo.txt == to create txt file named demo and adding text test to it.
+cat demo.txt == to read the txt file 
+pwd == to get full path
+
+

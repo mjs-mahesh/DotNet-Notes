@@ -1,0 +1,12 @@
+New Relic in github Actions
+
+https://github.com/marketplace/actions/new-relic-opentelemetry-github-actions-exporter
+https://github.com/newrelic-experimental/gha-new-relic-exporter?tab=readme-ov-file
+
+
+
+https://github.com/aws-samples/amazon-textract-code-samples/tree/master/src-csharp
+
+https://aws.amazon.com/blogs/machine-learning/translating-scanned-pdf-documents-using-amazon-translate-and-amazon-textract/
+
+https://aws.amazon.com/blogs/machine-learning/improve-data-extraction-and-document-processing-with-amazon-textract/

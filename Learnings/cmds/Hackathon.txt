@@ -1,0 +1,91 @@
+
+		private HealthCareCertificate MapHealthCareCertificate(TextractResponse? textractResponse)
+		{
+			var healthCareCertificate = new HealthCareCertificate();
+			var childDetails = new ChildDetails();
+			var pregnancyDetails = new PregnancyDetails();
+			var familyMemberDetails = new FamilyMemberDetails();
+			healthCareCertificate = new HealthCareCertificate()
+			{
+				EmployeeId = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, healthCareCertificate?.EmployeeId)?.ToString(),
+				EmployeeName = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, healthCareCertificate?.EmployeeName)?.ToString(),
+				EmployeeWorkSchedule = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, healthCareCertificate?.EmployeeWorkSchedule)?.ToString(),
+				EmployerName = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, healthCareCertificate?.EmployerName)?.ToString(),
+				WorkLocation = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, healthCareCertificate?.WorkLocation)?.ToString(),
+				DateOfBirth = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, healthCareCertificate?.DateOfBirth)?.ToString(),
+				AverageHoursWorked = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, healthCareCertificate?.AverageHoursWorked)?.ToString(),
+				LeaveId = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, healthCareCertificate?.LeaveId)?.ToString(),
+				LeaveReason = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, healthCareCertificate?.LeaveReason)?.ToString(),
+				LeaveStartDate = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, healthCareCertificate?.LeaveStartDate)?.ToString(),
+				LeaveEndDate = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, healthCareCertificate?.LeaveEndDate)?.ToString(),
+				RequireIntermittentLeave = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, healthCareCertificate?.RequireIntermittentLeave)?.ToString(),
+				IrregularSchedule = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, healthCareCertificate?.IrregularSchedule)?.ToString(),
+				SubmittedDate = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, healthCareCertificate?.SubmittedDate)?.ToString(),
+				ReturnToWorkDate = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, healthCareCertificate?.ReturnToWorkDate)?.ToString(),
+				ChildDetails = new ChildDetails()
+				{
+					AdoptionDate = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, childDetails?.AdoptionDate)?.ToString(),
+					//ChildType = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, childDetails?)?.ToString(),
+					DateOfBirth = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, childDetails?.DateOfBirth)?.ToString(),
+					PlacementDate = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, childDetails?.PlacementDate)?.ToString(),
+				},
+				PregnancyDetails = new PregnancyDetails()
+				{
+					ActualDeliveryDate = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, pregnancyDetails?.ActualDeliveryDate)?.ToString(),
+					EstimatedDeliveryDate = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, pregnancyDetails?.EstimatedDeliveryDate)?.ToString()
+				},
+				FamilyMemberDetails = new FamilyMemberDetails()
+				{
+					Name = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, familyMemberDetails?.Name)?.ToString(),
+					DateOfBirth = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, familyMemberDetails?.DateOfBirth)?.ToString(),
+					CareDetail = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, familyMemberDetails?.CareDetail)?.ToString(),
+					//Relationship = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, healthCareCertificate?)?.ToString(),
+					RelationshipDetail = QueryExtensions.MapExtensionItemWithDest(textractResponse.ExtensionItems, familyMemberDetails?.RelationshipDetail)?.ToString(),
+				}
+			};
+
+			return healthCareCertificate;
+		}
+		
+		
+			var healthCareCertificate = MapHealthCareCertificate(textractResponse);
+			
+						//CreateMap<TextractResponse, PregnancyDetails>()
+			//.ForMember(dest => dest.ActualDeliveryDate, opt => opt.MapFrom(src => src.ExtensionItems.Where(x => x.Key == "Actual delivery date").Select(x => x.Value)))
+			//.ForMember(dest => dest.EstimatedDeliveryDate, opt => opt.MapFrom(src => src.ExtensionItems.Where(x => x.Key == "Estimated Date of delivery").Select(x => x.Value)))
+			//.ForAllMembers(opts => opts.MapFrom<PregnancyDetailsResolver>());
+			//.ForAllMembers(opts => opts.MapFrom<QueryAttributeResolver>());
+
+			//CreateMap<TextractResponse, ChildDetails>()
+			//	.ForAllMembers(opts => opts.MapFrom<QueryAttributeResolver>());
+
+			//CreateMap<TextractResponse, FamilyMemberDetails>()
+			//	.ForAllMembers(opts => opts.MapFrom<FamilyMemberDetailsResolver>());
+			//.ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ExtensionItems.Where(x => x.Key == "Name").Select(x => x.Value)))
+			//.ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.ExtensionItems.Where(x => x.Key == "If caring for a child, give Date of birth").Select(x => x.Value)))
+			//.ForMember(dest => dest.Relationship, opt => opt.MapFrom(src => src.ExtensionItems.Where(x => x.Key == "Relationship").Select(x => x.Value)))
+			//.ForMember(dest => dest.CareDetail, opt => opt.MapFrom(src => src.ExtensionItems.Where(x => x.Key == "What care will you be providing the family member").Select(x => x.Value)))
+			//.ForMember(dest => dest.RelationshipDetail, opt => opt.MapFrom(src => src.ExtensionItems.Where(x => x.Key == "If other, please describe relationship").Select(x => x.Value)));
+			//.ForAllMembers(opts => opts.MapFrom<QueryAttributeResolver>());
+
+			//CreateMap<TextractResponse, HealthCareCertificate>()
+			//.ForMember(dest => dest.FamilyMemberDetails, opt => opt.Ignore())
+			//.ForMember(dest => dest.ChildDetails, opt => opt.Ignore())
+			//.ForMember(dest => dest.PregnancyDetails, opt => opt.Ignore())
+			//.ForMember(d => d.FamilyMemberDetails, opt => opt.MapFrom(s => CreateMap<TextractResponse, FamilyMemberDetails>()))
+			//.ForMember(d => d.ChildDetails, opt => opt.MapFrom(s => CreateMap<TextractResponse, ChildDetails>()))
+			//.ForMember(d => d.PregnancyDetails, opt => opt.MapFrom(s => CreateMap<TextractResponse, PregnancyDetails>()))
+			//.ForAllMembers(opts => opts.MapFrom<QueryAttributeResolver>());
+			
+			
+									//if (destProp.Name == "PregnancyDetails")
+						//{
+						//var esdt = source.ExtensionItems.Where(x => x.Key == "Estimated Date of delivery").Select(x => x.Value);
+						//var add = source.ExtensionItems.Where(x => x.Key == "Actual delivery date").Select(x => x.Value);
+						//var pregnancyDetails = (typeof(PregnancyDetails)).GetProperties();
+						//destProp.SetValue(new PregnancyDetails
+						//{
+						//	ActualDeliveryDate = destProp.SetValue(destination, extensionItem.Value),
+						//	EstimatedDeliveryDate = destProp.SetValue(destination, extensionItem.Value)
+						//});
+						//}

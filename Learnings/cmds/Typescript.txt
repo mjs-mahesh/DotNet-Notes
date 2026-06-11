@@ -1,0 +1,12 @@
+Typescript
+Github https://github.com/mschwarzmueller/understanding-typescript-resources
+
+npm install -g typescript
+tsc calculator.ts
+
+npx tsc demo.ts to run typescript file
+node demo.js   -- to run javascript file
+tsc --init -- ts config file
+tsc --to compile
+tsc --watch | tsc -w  -- to run in watch mode
+npm install @typed/node --save -dev

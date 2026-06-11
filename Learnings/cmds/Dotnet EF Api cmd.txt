@@ -1,0 +1,22 @@
+dotnet CLI commands
+dotnet --info
+dotnet -h
+dotnet new list
+dotnet new sln
+dotnet new webapi -h
+dotnet new webapi -o API -controllers
+dotnet new classlib -o Data
+dotnet new classlib -o Service
+dotnet sln add API
+dotnet sln add Data
+dotnet sln add Service
+dotnet add reference ../Service    for API layer
+dotnet add reference ../Data    for Service layer
+dotnet restore
+dotnet build
+dotnet run
+dotnet watch
+dotnet ef migrations add InitialCreate -s API -p Data
+dotnet ef migrations remove -p Data -s API
+dotnet ef database update -s API -p Data
+dotnet ef database drop -p Data -s API

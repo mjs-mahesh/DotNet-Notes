@@ -1,0 +1,180 @@
+ASP.NET Core
+
+Basics:
+
+· ASP.NET Core is an open source and cloud-optimized web framework for developing modern web applications that can be developed and run on Windows, Linux and the Mac.
+
+· It includes the MVC framework, which now combines the features of MVC and Web API into a single web programming framework
+
+· Built-in dependency injection.
+
+· Model binding automatically maps data from HTTP requests to action method
+
+· Oop's Concept: https://www.c-sharpcorner.com/UploadFile/mkagrahari/introduction-to-object-oriented-programming-concepts-in-C-Sharp/
+
+Project Structure:
+
+· .csproj file includes settings related to targeted .NET Frameworks, project folders, NuGet package references etc.
+
+· launchSettings.json file which includes Visual Studio profiles of debug settings. It contains configurations to launch  IIs and it contains SSL port, application url, and launch url.The following is a default launchSettings.json file.
+
+· Program.cs is the entry point to the project, where we can create a host for the web application. The CreateDefaultBuilder() method creates a new instance of WebHostBuilder with pre-configured defaults. Internally, it configures Kestrel, IISIntegration and other configurations. The CreateDefaultBuilder method creates an instance of WebHostBuilder and also calls ConfigureAppConfiguration() to load configurations from appsettings.json files, environment variables etc.
+
+· Startup class is responsible for configuring the application's services and middleware. It is defined in a Startup.cs file, which is typically located in the root of the project directory. The Startup class has two methods that are called by the application's host when the application starts: ConfigureServices and Configure.
+
+· The ConfigureServices method is used to configure the application's services.
+
+· The Configure method is used to configure the application's middleware. Middleware is software that sits between the application and the web server, and is responsible for handling incoming HTTP requests and responses.
+
+· Built-in IoC container manages the lifetime of a registered service type. It automatically
+
+disposes a service instance based on the specified lifetime.
+
+· AddSingleton(), AddTransient() and AddScoped() methods for singleton, transient and scoped lifetime respectively.
+
+· The built-in IoC container supports three kinds of lifetimes:
+
+1. Singleton: IoC container will create and share a single instance of a service throughout the application's lifetime.
+
+2. Transient: The IoC container will create a new instance of the specified service type every time you ask for it.
+
+3. Scoped: IoC container will create an instance of the specified service type once per request and will be shared in a single request. 4. https://learn.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-7.0
+
+Net Core API :
+
+· API stands for Application Programming Interface. It is an intermediate software agent that allows two or more applications to interact with each other.
+
+· RESTful Web API is mostly used for CRED (Create, Read, EDIT, DELETE) operations. It follows HTTP verbs for these operations.
+
+· HTTP GET – Read Operation
+
+· HTTP POST – Create Operation
+
+· HTTP PUT – Update Operation
+
+· HTTP DELETE – Delete Operation
+
+Enabling Routing in ASP.NET Core Web API Application:
+
+In ASP.NET Core Web API Application, we can enable the Routing through Middleware. In order to enable Routing in ASP.NET Core, we need to add the following two middleware components to the HTTP Request processing Pipeline.
+
+· UseRouting(): The UseRouting Middleware only enables the Routing for your application. This will not map any URL to any resource.
+
+· UseEndpoints(): This middleware will map the URL to the resource. Can also map static file resources to a URL. · https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/routing?view=aspnetcore-7.0
+
+Fluent validation:
+
+· FluentValidation can be used within ASP.NET Core web applications to validate incoming models.
+
+· By using a .NET library like FluentValidation you can easily configure validation rules with lambda expressions. The library even allows you to enter an error message to the client with details about why the validation failed.
+
+· We will have to add Fluent Validation to our application inside Startup.cs using "AddFluentValidation" · https://blog.christian-schou.dk/how-to-use-fluentvalidation-in-asp-net-core6/
+
+AutoMapper:
+
+· AutoMapper is a simple library that helps us to transform one object type into another. It is a convention-based object-to-object mapper that requires very little configuration.
+
+· After installing the required package, the next step is to configure the services in the Startup.cs class
+
+· CreateMap() : This method to create a mapping by providing the source and destination properties.
+
+· ForMember() : If we want to customize the configuration for individual members, we can use this method which has the parameters destinationMember.
+
+· ReverseMap(): By using Automapper’s Reverse mapping capability, it is possible to achieve bi-directional mapping. It can be mapped back from destination to source type. · https://www.pragimtech.com/blog/blazor/using-automapper-in-asp.net-core/
+
+
+Dapper:
+
+https://dapper-tutorial.net/step-by-step-tutorial
+
+Dapper is an object-relational mapping (ORM) for the .NET platform. 
+
+It provides a framework for mapping an object-oriented domain model to a traditional relational database.
+
+Dapper provides a mapping between databases and .NET objects.
+
+It owns the title of King of Micro ORM in terms of speed and is as fast as using a raw ADO.NET data reader.
+
+It extends the IDbConnection by providing useful extension methods to query your database.
+
+Dapper also supports mapping queries to objects with multiple levels of nesting (e.g. results that contain lists of objects).
+
+Features
+
+Speedy and high performance
+Choice of static/dynamic object binding
+Easy handling of SQL query
+Multiple query support
+Support and easy handling of stored procedures
+Operating directly on the IDbConnection interface
+Bulk data insert functionality
+
+Dapper Async Methods
+
+Dapper has several methods that allow you to execute asynchronous queries. To use the async functionality, you need to pass in a System.Data.IDbConnection and call one of the extension methods provided by Dapper.
+
+Dapper extends the IDbConnection interface with the following Async (asynchronous) methods.
+
+ExecuteAsync: It executes a query asynchronously and returns the number of rows affected.
+QueryAsync: It executes a query asynchronously and returns the results of the query as an IEnumerable<T>.
+QueryFirstAsync: It executes a query asynchronously and returns the first result of the query.
+QueryFirstOrDefaultAsync: It executes a query asynchronously and returns the first result of the query, or the default value for the type T if no result is found.
+QuerySingleAsync: It executes a query asynchronously and returns a single result of the query.
+QuerySingleOrDefaultAsync: It executes a query asynchronously and returns a single result of the query, or the default value for the type T if no result is found.
+QueryMultipleAsync: It executes multiple queries asynchronously within the same command and maps the results to strong entities.
+
+
+SP : Using Stored Procedure in Dapper is very easy, you simply need to specify the command type
+
+
+Scrutor:
+
+https://andrewlock.net/using-scrutor-to-automatically-register-your-services-with-the-asp-net-core-di-container/
+
+Scrutor is not a new DI container. Under the hood it uses the built-in ASP.NET Core DI container. 
+
+https://www.infoworld.com/article/3321356/how-to-use-scrutor-in-aspnet-core.html
+
+It’s important to note that Scrutor is not a DI container.
+ 
+Rather, Scrutor provides a fluent API to register services based on conventions, using the built-in DI container of ASP.Net Core.
+
+If you need a DI container with more features and capabilities, you can use third-party DI containers such as AutoFac, Windsor, StructureMap, Ninject, and DryIoc. Scrutor can be used to provide assembly scanning and decoration extensions in ASP.Net Core.
+
+The Scrutor API has two extension methods—scan and decorate—that extend the functionality of the IServiceCollection interface. While scan is used to search an assembly for types that correspond to a service to be registered, decorate is used to decorate an instance of a service.
+
+Without Scrutor, the code you would typically need to write to register these services would look as follows.
+
+
+Dependency Injection
+
+https://www.tutorialsteacher.com/ioc/dependency-injection
+
+Synchronous and Asyncronous
+To avoid threading issues 
+sync :-
+works in single thread
+cancellation token not supported
+throws an exception but async keeps them in task
+best for simple task
+
+Async:-
+
+multi threaded
+support cancellation token
+to use it async & await can be used
+it can be used in long operation   
+Async and Await :
+
+Asynchronous programming is very popular with the help of the async and await keywords in C#. 
+
+When we are dealing with UI, and on button click, we use a long-running method like reading a large file or something else which will take a long time, in that case, the entire application must wait to complete the whole task. 
+
+In other words, if any process is blocked in a synchronous application, the whole application gets blocked, and our application stops responding until the whole task completes.
+
+Asynchronous programming is very helpful in this condition. By using Asynchronous programming, the Application can continue with the other work that does not depend on the completion of the entire task.
+
+We will get all the benefits of traditional Asynchronous programming with much less effort with the help of async and await keywords
+
+
+

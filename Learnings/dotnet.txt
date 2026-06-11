@@ -1,0 +1,3 @@
+dotnet -h
+dotnet run -h 
+RAR-2047

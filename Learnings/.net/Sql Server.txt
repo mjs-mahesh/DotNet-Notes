@@ -1,0 +1,53 @@
+SQL Server 
+https://www.tutorialsteacher.com/sqlserver
+Views
+
+view is a virtual table whose values are defined by a query. 
+view is a name given to a query that can be used as a table. 
+The rows and columns of a view come from tables referenced by a query.
+It enables us to protect intricate or sensitive data based upon our needs.
+
+Functions
+
+Functions in SQL Server contains SQL statements that perform some specific tasks. 
+Functions can have input parameters and must return a single value or multiple records.
+Faster Execution: Similar to stored procedures
+You can create UDFs once and store them in the database, and they can be called any number of times.
+Only Select statements. DML statements like update & insert are not allowed.
+
+https://www.tutorialsteacher.com/articles/functions-vs-stored-procedures-in-sqlserver
+
+Stored Procedures
+When you need to store or retrieve data that is accessing and manipulating data within a database is a rather straightforward operation in SQL server database,
+and so we will go for T-SQL with four simple commands – SELECT, INSERT, DELETE, and UPDATE, and perform all the required tasks.
+stored procedure can have zero or more INPUT and OUTPUT parameters.
+
+Each parameter is assigned a name, a data type, and direction like Input, Output, or Return. If a direction is not specified, then by default, it is Input.
+The stored procedure parameters names must start with a single @.
+The name must be unique in the scope of the stored procedure.
+If one parameter is supplied as @param1 = value, then all parameters must be supplied in the same manner.
+
+
+Index 
+https://www.tutorialsteacher.com/sqlserver/indexes
+
+Index  is a data structure associated with tables and views that helps in faster retrieval of rows
+
+Data in a table is stored in rows in an unordered structure called Heap. 
+If you have to fetch data from a table, the query optimizer has to scan the entire table to retrieve the required row(s). 
+If a table has a large number of rows, then SQL Server will take a long time to retrieve the required rows. So, to speed up data retrieval, SQL Server has a special data structure called indexes.
+
+Clustered Indexes
+a table without indexes will be stored in an unordered structure. 
+When you define a clustered index on a column, it will sort data based on that column values and store it
+There can be only one clustered index on a table because the data rows can be stored in only one order.
+When you create a Primary Key constraint on a table, a unique clustered index is automatically created on the table.
+
+Non Clustered index
+
+The non-clustered index does not sort the data rows physically. 
+It creates a separate key-value structure from the table data where the key contains the column values (on which a non-clustered index is declared) and each value contains a pointer to the data row that contains the actual value. 
+It is similar to a textbook having an index at the back of the book with page numbers pointing to the actual information
+There can be 999 non-clustered indexes on a single table is 999.
+When you create a Unique constraint, a unique non-clustered index is created on the table.
+

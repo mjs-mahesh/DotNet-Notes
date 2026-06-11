@@ -1,0 +1,10 @@
+worker -
+ SQS - we use worker to connect with aws sqs to read queues in aws sqs.
+normally we use aws queues because if the API service is down for 10 min or 15 min at that time  queues from tools teams were not stored in apis. 
+By using AWS SQS queues were stored in cloud at that time when apis were down. 
+so were using asynchronous type here for queues.
+ 
+S3
+we use s3 bucket to store large files because sqs does not have support for large files and large text size
+
+In future we are gonna save only source path of files or text in AWS SQS in which source path redirects to a s3 bucket.

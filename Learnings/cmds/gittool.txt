@@ -1,0 +1,8 @@
+C:\Users\A1089761\gitbashtool>PowerShell.exe -command "C:\Users\A1089761\gitbashtool\verify-deploy-prod.sh prod rs"
+
+C:\Users\A1089761\gitbashtool>PowerShell.exe -command "C:\Users\A1089761\gitbashtool\verify-deploy-prod.sh prod saas"
+
+C:\Users\A1089761\gitbashtool>PowerShell.exe -command "C:\Users\A1089761\gitbashtool\verify-deploy-prod.sh prod saas"
+
+C:\Users\A1089761\gitbashtool>PowerShell.exe -command "C:\Users\A1089761\gitbashtool\verify-deploy-prod.sh prod saas"
+
