@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookmarks</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        header, footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #2c3e50;
+            color: white;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 300px;
+        }
+        h2 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        li {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        li i {
+            margin-right: 10px;
+            color: #2c3e50;
+            font-size: 1.2em;
+            width: 20px;
+            text-align: center;
+        }
+        a {
+            text-decoration: none;
+            color: #2980b9;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .todo input[type="checkbox"] {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Bookmarks</h1>
+    </header>
+    <div class="container">
+        <div class="card">
+            <h2>Important Apps</h2>
+            <ul>
+                <li><i class="fab fa-github"></i><a href="https://github.com/dashboard" target="_blank">GitHub</a></li>
+                <li><i class="fab fa-atlassian"></i><a href="https://home.atlassian.com" target="_blank">Attlassian</a></li>
+                <li><i class="fas fa-cogs"></i><a href="https://jenkins.com" target="_blank">Jenkins</a></li>
+                <li><i class="fas fa-chart-line"></i><a href="https://sonarqube.com/projects" target="_blank">SonarQube</a></li>
+                <li><i class="fab fa-aws"></i><a href="https://aws.amazon.com/" target="_blank">AWS</a></li>
+                <li><i class="fas fa-bolt"></i><a href="https://login.newrelic.com" target="_blank">NewRelic</a></li>
+                <li><i class="fas fa-user-shield"></i><a href="https://saviyntcloud.com" target="_blank">CPAM-Saviynt</a></li>
+                <li><i class="fas fa-user-plus"></i><a href="https://service-now.com" target="_blank">ServiceNow</a></li>
+                <li><i class="fas fa-home"></i><a href="https://service-now.com/sp" target="_blank">myIT</a></li>
+                <li><i class="fas fa-bug"></i><a href="https://elmah.io/tools/stack-trace-formatter/" target="_blank">StackTrace</a></li>
+                <li><i class="fa-solid fa-file-signature"></i><a href="https://aws-dev.awsapps.com/start/#/?tab=accounts" target="_blank">AWS-SandBox</a></li>
+            </ul>
+        </div>
+        <div class="card">
+            <h2>Apps QA</h2>
+            <ul>
+            </ul>
+        </div>
+        <div class="card">
+            <h2>Swagger Apis QA</h2>
+            <ul>
+              
+            </ul>
+        </div>
+        <div class="card">
+            <h2>SharePoint Urls</h2>
+            <ul>
+
+            </ul>
+        </div>
+        <div class="card">
+            <h2>To‑Do-Task</h2>
+            <h3><span class="count" id="todo-count">0 items</span></h3>
+            <div class="todo-input">
+              <input id="new-todo" type="text" placeholder="What needs to be done?" label="New To‑Do" />
+              <button class="btn primary" id="add-btn" label="Add">Add</button>
+            </div>
+      
+            <ul class="todo-list" id="todo-list"></ul>
+            <div class="empty" id="empty-state">Nothing here yet. Add your first task!</div>
+            </br>
+            <div>
+              <h3>Filters</h3>
+              <button class="btn secondary" data-filter="all">All</button>
+              <button class="btn secondary" data-filter="active">Active</button>
+              <button class="btn secondary" data-filter="completed">Completed</button>
+              <button class="btn secondary" id="clear-completed">Clear Completed</button>
+            </div>
+          </div>
+    </div>
+    
+</br>
+    <footer>
+        <p>&copy; 2024 My Bookmarks</p>
+    </footer>
+
+    <script>
+        // Simple Todo implementation with localStorage persistence
+        (function() {
+          const storageKey = 'mahesh.todo.items.v1';
+          let items = load();
+          let currentFilter = 'all';
+    
+          const newInput = document.getElementById('new-todo');
+          const addBtn = document.getElementById('add-btn');
+          const listEl = document.getElementById('todo-list');
+          const emptyEl = document.getElementById('empty-state');
+          const countEl = document.getElementById('todo-count');
+          const filterBtns = document.querySelectorAll('[data-filter]');
+          const clearCompletedBtn = document.getElementById('clear-completed');
+    
+          function load() {
+            try { return JSON.parse(localStorage.getItem(storageKey)) || []; }
+            catch { return []; }
+          }
+          function save() { localStorage.setItem(storageKey, JSON.stringify(items)); }
+          function uid() { return Math.random().toString(36).slice(2, 10); }
+    
+          function render() {
+            listEl.innerHTML = '';
+            const filtered = items.filter(i => {
+              if (currentFilter === 'active') return !i.completed;
+              if (currentFilter === 'completed') return i.completed;
+              return true;
+            });
+            if (filtered.length === 0) {
+              emptyEl.style.display = 'block';
+            } else {
+              emptyEl.style.display = 'none';
+            }
+            filtered.forEach(item => {
+              const li = document.createElement('li');
+              li.className = 'todo-item' + (item.completed ? ' completed' : '');
+              li.dataset.id = item.id;
+    
+              const checkbox = document.createElement('input');
+              checkbox.type = 'checkbox';
+              checkbox.className = 'checkbox';
+              checkbox.checked = item.completed;
+              checkbox.title = 'Toggle completed';
+              checkbox.addEventListener('change', () => {
+                item.completed = checkbox.checked;
+                save();
+                updateCount();
+                render();
+              });
+    
+              const title = document.createElement('span');
+              title.className = 'todo-title';
+              title.textContent = item.title;
+    
+              // Inline editing
+              title.addEventListener('dblclick', () => {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.value = item.title;
+                input.className = 'todo-title';
+                li.replaceChild(input, title);
+                input.focus();
+                input.addEventListener('blur', commit);
+                input.addEventListener('keydown', (e) => { if (e.key === 'Enter') commit(); });
+                function commit() {
+                  const v = input.value.trim();
+                  if (v) item.title = v; else removeItem(item.id);
+                  save();
+                  render();
+                }
+              });
+    
+              const actions = document.createElement('div');
+              actions.className = 'todo-actions';
+    
+              const del = document.createElement('button');
+              del.className = 'btn';
+              del.title = 'Delete';
+              del.textContent = 'Delete';
+              del.addEventListener('click', () => { removeItem(item.id); });
+    
+              actions.appendChild(del);
+    
+              li.appendChild(checkbox);
+              li.appendChild(title);
+              li.appendChild(actions);
+              listEl.appendChild(li);
+            });
+            updateCount();
+          }
+    
+          function updateCount() {
+            const remaining = items.filter(i => !i.completed).length;
+            const total = items.length;
+            countEl.textContent = `Total Tasks ${total} item${total === 1 ? '' : 's'} • ${remaining} left`;
+          }
+    
+          function removeItem(id) {
+            items = items.filter(i => i.id !== id);
+            save();
+            render();
+          }
+    
+          function addItem(title) {
+            const t = title.trim();
+            if (!t) return;
+            items.push({ id: uid(), title: t, completed: false });
+            save();
+            render();
+          }
+    
+          // Events
+          addBtn.addEventListener('click', () => addItem(newInput.value));
+          newInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') addItem(newInput.value); });
+          filterBtns.forEach(btn => btn.addEventListener('click', () => { currentFilter = btn.dataset.filter; render(); }));
+          clearCompletedBtn.addEventListener('click', () => { items = items.filter(i => !i.completed); save(); render(); });
+    
+          // Initial paint
+          render();
+        })();
+      </script>
+</body>
+</html>
