@@ -1,0 +1,111 @@
+@startuml
+title Documents API & Content Manager Integration
+
+actor FaxUser
+actor AM360User
+actor CSDTeam
+actor CallCenter_NXTSS as User
+
+participant DocumentApi
+participant WorkFlowApi
+participant CommunicationApi
+participant DocManager
+participant DocUpload
+participant Imaging
+participant IBMContentManager
+
+database S3
+database DB
+queue SQS
+queue SNS
+
+== Initial Document Upload ==
+
+group Upload & Storage
+    User -> DocumentApi : POST /documents
+    activate DocumentApi
+
+    group CPT Check\nUsesAutoIndexing = true\nDocumentType = Other\nAllowedExtensions = ["bmp","gif","jpeg","jpg","pdf","png","tif"] \nImageIdExist (Barcode) \nRequestedDocumentLocation = DocumentLocation.DocumentManager (CommsHub Letters uses DocManager to send letters) \n
+        DocumentApi -> DocManager : Store original document in DocManager DB
+    end
+
+    DocumentApi -> S3 : Store document in temporary S3 bucket path( documents/)
+    DocumentApi -> DB : Save DocumentLocation as S3 Client DB
+    DocumentApi -> SQS : Publish "DocumentUploadCompleted" SNS message
+
+    deactivate DocumentApi
+end
+
+group Metadata Generation
+    SQS -> DocumentApi : Consume "DocumentUploadCompleted" SNS message
+    activate DocumentApi
+
+    DocumentApi -> S3 : Copy original file from documents/ S3 path  + generate Metadata XML and Upload to outbound path
+
+    deactivate DocumentApi
+end
+
+group File Transfer & Scanning
+    S3 -> DocUpload : MFT transfer (document + XML) from outbound
+    DocUpload -> Imaging : Virus scan
+    Imaging -> IBMContentManager : Barcode scan & store document
+end
+
+
+== External Content Manager Inputs ==
+
+group Fax Document Flow
+    FaxUser -> Imaging : Upload fax document
+    Imaging -> IBMContentManager : Scan & store fax document
+end
+
+group AM360 / CSD Feed
+    AM360User -> IBMContentManager : Store documents directly into content manager from AM360 application
+    CSDTeam -> S3 : Upload feed file to update document gets viewed from LeavePro\n(LeaveDetails, ClientId, DocLocation)
+end
+
+
+== Content Manager Notification ==
+
+group Feed File Processing
+    IBMContentManager -> SNS : Publish notification ContentManagerSqsMessage
+    IBMContentManager -> S3 : Drop feed file (via MFT) into inbound path of S3 Bucket 
+
+    SNS -> DocumentApi : Notify feed file arrival
+    activate DocumentApi
+
+    DocumentApi -> S3 : Parse feed file
+    DocumentApi -> SQS : Publish 1 message per record to DocumentUploadCompleted
+    note right
+      Adjust SQS visibility timeout
+      based on record count
+    end note
+
+    DocumentApi -> DB : Update Content Manager DocumentLocation and TransactionId in Client DB
+    DocumentApi -> S3 : Delete temporary documents from S3 bucket path( documents/)
+
+    deactivate DocumentApi
+end
+
+
+== Auto Indexing & Task Creation ==
+
+group Record Processing
+    SQS -> DocumentApi : Consume record message DocumentUploadCompleted
+    activate DocumentApi
+
+    alt Fax Documents
+        DocumentApi -> WorkFlowApi : Create FormReviewTask\n(State: NotReviewed)
+    else Takeover Documents
+        DocumentApi -> CommunicationApi : Create FormReview\n(State: Complete)
+    end
+
+    deactivate DocumentApi
+end
+
+== Viewing Documents ==
+
+group View Documents 
+    User <- DocumentApi : GET/documents by filename
+end
+@enduml
