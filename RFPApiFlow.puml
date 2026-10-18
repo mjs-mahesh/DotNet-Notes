@@ -1,0 +1,87 @@
+@startuml
+title File Processing & Output Generation
+
+actor User
+
+participant UI
+participant "NET Background Service" as NetService
+participant Parser as "Reads / Parses Files"
+participant OutputCreation as "Output File Creation"
+
+database S3
+database DB
+queue SQS
+queue SNS
+
+== File Upload ==
+
+group Upload & Storage
+    User -> UI : Select and submit file
+    activate UI
+
+    UI -> S3 : Upload file to input/ path
+    UI -> DB : Save file details, location\nStatus = Uploaded
+
+    deactivate UI
+end
+
+== Upload Notification ==
+
+group Event Queueing
+    S3 -> SQS : ObjectCreated event for input/ path
+    note right
+      Adjust SQS visibility timeout
+      based on expected file size
+    end note
+end
+
+== File Processing ==
+
+group Consume & Trigger
+    SQS -> NetService : Poll message
+    activate NetService
+
+    NetService -> Parser : Trigger processing
+    activate Parser
+end
+
+group Read & Parse
+    Parser -> S3 : Read uploaded file from input/ path
+    Parser -> DB : Write / update parsed data\nStatus = Processing
+    Parser -> SNS : Publish "FileParsed" event
+
+    deactivate Parser
+    deactivate NetService
+end
+
+== Output File Creation ==
+
+group Generate Output
+    SNS -> OutputCreation : Deliver "FileParsed" event
+    activate OutputCreation
+
+    OutputCreation -> DB : Read parsed data
+    OutputCreation -> S3 : Store output file in output/ path
+    OutputCreation -> DB : Save output file location & time\nStatus = Completed
+
+    deactivate OutputCreation
+end
+
+== Viewing Results ==
+
+group View Status & Download
+    User -> UI : Open file list
+    activate UI
+
+    UI -> DB : Get file status / details (poll or refresh)
+
+    alt Status = Completed
+        UI -> S3 : Get output file from output/ path
+        UI --> User : Show / download output file
+    else Status = Uploaded or Processing
+        UI --> User : Show status, output not ready
+    end
+
+    deactivate UI
+end
+@enduml
